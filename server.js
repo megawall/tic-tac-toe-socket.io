@@ -33,13 +33,22 @@ io.on('connect',(socket)=>{
         }
         io.to(user.room).emit('operation',{data,user});
     });
-    socket.on('yours',()=>{
-        const user=getUser(socket.id);
+    socket.on('yours',(callback)=>{
+        const {err,user} =getUser(socket.id);
+        if(err){
+            console.log(err);
+            return callback(err);
+        }
+        //console.log("main");
         socket.broadcast.to(user.room).emit('box-clicked',{f:true});
     });
-    socket.on('restart',()=>{
-        const user=getUser(socket.id);
+    socket.on('restart',(call)=>{
+        const {err,user}=getUser(socket.id);
         //console.log(user) 
+        if(err){
+            console.log(err)
+            return call(err);
+        }
         io.to(user.room).emit('restart',{});
     });
 

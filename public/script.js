@@ -112,7 +112,12 @@ socket.on('box-clicked',({f})=>{
     console.log(f);
     flag=f;
     if(!flag)
-        socket.emit('yours',{});
+        socket.emit('yours',{},(err)=>{
+            if(err){
+                alert(err);
+                location.reload();
+            }
+        });
 });
 socket.on('operation',({data})=>{
     console.log('hii')
@@ -126,7 +131,12 @@ socket.on('operation',({data})=>{
     
 })
 restart.onclick=function(){
-    socket.emit('restart',{})
+    socket.emit('restart',{},()=>{
+        if(err){
+            alert(err);
+            location.reload();
+        }
+    })
 }
 socket.on('restart',()=>{
     game.turn = 'X'
