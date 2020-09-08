@@ -131,7 +131,7 @@ socket.on('operation',({data})=>{
     
 })
 restart.onclick=function(){
-    socket.emit('restart',{},()=>{
+    socket.emit('restart',{},(err)=>{
         if(err){
             alert(err);
             location.reload();
